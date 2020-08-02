@@ -26,7 +26,6 @@ export default ({ account, contract }) => {
 			}
 			allArticles.push(article)
 		}
-		console.log('all articles', allArticles)
 		setArticles(allArticles)
 	}
 

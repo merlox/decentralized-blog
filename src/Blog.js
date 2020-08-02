@@ -16,7 +16,7 @@ export default ({ account, contract }) => {
 			from: account
 		})
 		let allArticles = []
-		for (let i = 0; i < lastId; i++) {
+		for (let i = lastId - 1; i >= 0; i--) {
 			let article = await contract.methods.getArticle(i, account).call()
 			article = {
 				id: article[0],

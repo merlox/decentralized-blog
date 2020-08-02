@@ -1,37 +1,41 @@
 {
-    "name": "airdrop-erc20",
+    "name": "decentralized-blog",
     "version": "1.0.0",
     "description": "",
     "main": "App.js",
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1",
-        "start": "node server.js",
-        "install": "npm i -S babel-core babel-loader babel-polyfill babel-preset-env babel-preset-react babel-require css-loader html-webpack-plugin react react-dom stylus style-loader stylus-loader webpack"
+        "webpack-watch": "webpack -w",
+        "nodemon": "nodemon server.js -- -p 8000",
+        "start": "npm-run-all --parallel webpack-watch nodemon"
     },
     "keywords": [],
-    "author": "",
+    "author": "Merunas Grincalaitis",
     "license": "ISC",
     "devDependencies": {
         "babel-core": "^6.26.3",
-        "babel-loader": "^7.1.4",
+        "babel-loader": "^7.1.5",
         "babel-polyfill": "^6.26.0",
         "babel-preset-env": "^1.7.0",
         "babel-preset-react": "^6.24.1",
         "babel-require": "^1.0.1",
         "css-loader": "^0.28.11",
         "html-webpack-plugin": "^3.2.0",
-        "react": "^16.4.0",
-        "react-dom": "^16.4.0",
+        "json-loader": "^0.5.7",
+        "react": "^16.13.1",
+        "react-dom": "^16.13.1",
         "style-loader": "^0.21.0",
-        "stylus": "^0.54.5",
+        "stylus": "^0.54.8",
         "stylus-loader": "^3.0.2",
         "web3": "^1.0.0-beta.34",
-        "webpack": "^4.12.0"
+        "webpack": "^4.44.1",
+        "webpack-cli": "^3.3.12"
     },
     "dependencies": {
+        "@truffle/hdwallet-provider": "^1.0.40",
         "body-parser": "^1.19.0",
         "express": "^4.17.1",
+        "npm-run-all": "^4.1.5",
+        "react-toastify": "^6.0.8",
         "yargs": "^14.0.0"
     }
-
 }

@@ -1,33 +1,37 @@
-import React from 'react'
+import React, { useState } from 'react'
 import ReactDOM from 'react-dom'
 import Nav from './Nav'
-import AddCode from './AddCode'
-import MyCode from './MyCode'
+// import AddArticle from './AddArticle'
+// import Blog from './Blog'
 import './index.styl'
 
-class App extends React.Component {
-	constructor () {
-		super()
-		this.state = {
-			isShowingMyCode: true
-		}
+import { ToastContainer } from 'react-toastify'
+
+const App = () => {
+	const [activePage, setActivePage] = useState('home')
+
+	const changePage = page => {
+		setActivePage(page)
 	}
 
-	showMyCodes(state) {
-		this.setState({isShowingMyCode: state})
-	}
+	// const renderActivePage = () => {
+	// 	switch (activePage) {
+	// 		case 'home':
+	// 			return <Blog />
+	// 		case 'add-article':
+	// 			return <AddArticle />
+	// 		default:
+	// 			return <Blog />
+	// 	}
+	// }
 
-	render () {
-		return (
-			<div>
-				<Nav showMyCodes={(state) => this.showMyCodes(state)}/>
-				{this.state.isShowingMyCode ? <MyCode/> : <AddCode/>}
-			</div>
-		)
-	}
+	return (
+		<div>
+			<Nav changePage={page => changePage(page)} />
+			{/* {renderActivePage()} */}
+			<ToastContainer />
+		</div>
+	)
 }
 
-ReactDOM.render(
-	<App />,
-	document.querySelector('#root')
-)
+ReactDOM.render(<App />, document.querySelector('#root'))

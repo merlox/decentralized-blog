@@ -1,10 +1,9 @@
-import React from 'react'
+import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import Web3 from 'web3'
-import './MyCode.styl'
 import {address, abi} from './myContract'
 
-class MyCode extends React.Component {
+export default class Blog extends React.Component {
 	constructor () {
 		super()
 		window.web3 = new Web3(web3.currentProvider)
@@ -47,5 +46,3 @@ class MyCode extends React.Component {
 		)
 	}
 }
-
-export default MyCode

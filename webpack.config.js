@@ -25,10 +25,15 @@ module.exports = {
                 }
             }, 'stylus-loader'],
             include: /src/
-        }]
+        }, {
+            loader: 'json-loader',
+            test: /\.json$/,
+            exclude: /node_modules/,
+        }
+    ]
     },
     plugins: [new htmlPlugin({
-        title: "Decentralized Code",
+        title: "Decentralized Blog",
         template: './src/index.ejs',
         hash: true
     })]

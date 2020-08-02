@@ -34,11 +34,6 @@ module.exports = {
 				include: /src/,
 			},
 			{
-				loader: 'json-loader',
-				test: /\.json$/,
-				exclude: /node_modules/,
-			},
-			{
                 test: /\.css$/,
 				use: ['style-loader', 'css-loader'],
 			},

@@ -1,65 +1,48 @@
 import React, { useState, useEffect } from 'react'
 
 export default ({ account, contract }) => {
-	const [ids, setIds] = useState([])
+	const [articles, setArticles] = useState([])
+	// Required because the contract variable will be null when this loads
+	// so we gotta wait until it's setup to get the blockchain data
+	useEffect(() => {
+		if (contract) {
+			getArticles()
+			setInterval(getArticles, 1e3)
+		}
+	}, [contract])
 
-	const getCodes = async () => {
-		const articleIds = await contract.methods.getArticleIds().call({
+	const getArticles = async () => {
+		const lastId = await contract.methods.lastId().call({
 			from: account
 		})
-		// let codes = []
-
-		// for(let i = 0; i < codeLength; i++) {
-		// 	codes.push(await contractInstance.methods.userCode(user, i).call())
-		// }
-
-		// codes = codes.map(element => (
-		// 	<div key={parseInt(element.id) + 1}>
-		// 		<h4>{parseInt(element.id) + 1} {element.fileName}</h4>
-		// 		<pre>{element.code}</pre>
-		// 	</div>
-		// ))
+		let allArticles = []
+		for (let i = 0; i < lastId; i++) {
+			let article = await contract.methods.getArticle(i, account).call()
+			article = {
+				id: article[0],
+				title: article[1],
+				content: article[2],
+				owner: article[3],
+			}
+			allArticles.push(article)
+		}
+		console.log('all articles', allArticles)
+		setArticles(allArticles)
 	}
+
+	return (
+		<div className="add-code-block">
+			<h2>Decentralized Blog dApp</h2>
+			<div className="articles">
+				{articles.length === 0 ? (
+					<p>No articles yet...</p>
+				) : articles.map(article => (
+					<div key={article.id}>
+						<h3>{article.title}</h3>
+						<p className="article-content">{article.content}</p>
+					</div>
+				))}
+			</div>
+		</div>
+	)
 }
-
-	// constructor () {
-	// 	super()
-	// 	window.web3 = new Web3(web3.currentProvider)
-	// 	window.contractInstance = new web3.eth.Contract(abi, address)
-	// 	this.state = {
-	// 		codes: [],
-	// 		isLoadingMessage: true
-	// 	}
-	// 	this.getCodes()
-	// }
-
-	// async getCodes() {
-	// 	const user = (await web3.eth.getAccounts())[0]
-	// 	const codeLength = await contractInstance.methods.getLength().call({
-	// 		from: user
-	// 	})
-	// 	let codes = []
-
-	// 	for(let i = 0; i < codeLength; i++) {
-	// 		codes.push(await contractInstance.methods.userCode(user, i).call())
-	// 	}
-
-	// 	codes = codes.map(element => (
-	// 		<div key={parseInt(element.id) + 1}>
-	// 			<h4>{parseInt(element.id) + 1} {element.fileName}</h4>
-	// 			<pre>{element.code}</pre>
-	// 		</div>
-	// 	))
-
-	// 	this.setState({codes, isLoadingMessage: false})
-	// }
-
-	// render () {
-	// 	return (
-	// 		<div className="my-code-block">
-	// 			<h2>Your decentralized code</h2>
-	// 			{this.state.isLoadingMessage ? "Loading..." : ""}
-	// 			{this.state.codes}
-	// 		</div>
-	// 	)
-	// }

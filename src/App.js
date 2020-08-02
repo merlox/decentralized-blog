@@ -4,8 +4,8 @@ import Nav from './Nav'
 // import AddArticle from './AddArticle'
 // import Blog from './Blog'
 import './index.styl'
+import 'react-toastify/dist/ReactToastify.css'
 
-import { ToastContainer } from 'react-toastify'
 
 const App = () => {
 	const [activePage, setActivePage] = useState('home')
@@ -29,7 +29,6 @@ const App = () => {
 		<div>
 			<Nav changePage={page => changePage(page)} />
 			{/* {renderActivePage()} */}
-			<ToastContainer />
 		</div>
 	)
 }
